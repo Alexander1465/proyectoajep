@@ -100,7 +100,7 @@ export default function Menu() {
             <Toolbar>
               <IconButton
                 onClick={toggleDrawer(true)}
-                color="inherit"
+                sx={{color:"white"}}
               >
               <MenuIcon />
               <Drawer open={open} onClose={toggleDrawer(false)}>
@@ -108,7 +108,7 @@ export default function Menu() {
               </Drawer>
               </IconButton>
               <IconButton sx={{color:"white", flexGrow:1}} onClick={handleClick}>{userData.nombreUsuario}</IconButton>
-              <IconButton color='inherit'>
+              <IconButton sx={{color:"white"}}>
                 <AccountCircle/>
               </IconButton>
               </Toolbar>

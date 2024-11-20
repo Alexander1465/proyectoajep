@@ -45,7 +45,7 @@ function Dahsboard() {
           .then(response => response.json())
           .then (response => {
             if(response > 0) {
-              alert("Datos guardados con exito")
+              alert("Datos guardados")
               fetch(`http://localhost:3030/getItems`)
                 .then((response) => response.json())
                 .then((response) => {
@@ -62,19 +62,18 @@ function Dahsboard() {
           .then(response => response.json())
           .then((response) => {
             if (response > 0) {
-              alert("Elemento eliminado con éxito");
+              alert("Elemento eliminado");
               fetch(`http://localhost:3030/getItems`)
                 .then((response) => response.json())
                 .then((response) => {
                 setTableData(response.data);
             });
             } else {
-              alert("Error al eliminar el elemento");
+              alert("Error al eliminar elemento");
             }
           })
           .catch((error) => {
             console.error("Error en la eliminación:", error);
-            alert("Error en la eliminación");
           });
       };
 

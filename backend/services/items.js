@@ -11,6 +11,15 @@ const result = await db.query(
  return result.affectedRows
 }
 
+async function insertDataRol (req, res) {
+    const data = req.query
+    const result = await db.query(
+        `insert into usuarios(nombre,login,password,rol) values(?,?,?,?)`, 
+        [data.nombre, data.login, data.password, data.rol]
+    )
+     return result.affectedRows
+    }
+
 async function getData (req, res) {
     const rows = await db.query(
     `Select * from coleccion`
@@ -21,6 +30,17 @@ return {
 }
 }
 
+async function getDataRol (req, res) {
+    const rows = await db.query(
+    `Select * from usuarios`
+    )
+    const data = helper.emptyOrRows(rows)
+return {
+    data
+}
+}
+
+
 
 async function deleteData (req, res) {
     const data = req.query
@@ -30,9 +50,12 @@ async function deleteData (req, res) {
  return result.affectedRows
 }
 
+
 module.exports = {
     getData,
     insertData,
-    deleteData
+    deleteData,
+    insertDataRol,
+    getDataRol
    }
 

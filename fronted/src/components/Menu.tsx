@@ -18,33 +18,37 @@ import Drawer from '@mui/material/Drawer';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import { authActions } from '../store/authSlice';
 import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { RootState } from '../store/index';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import AdbIcon from '@mui/icons-material/Adb';
+import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
+
 
 export default function Menu() {
-    const [open, setOpen] = React.useState(false);
-    const userData = useSelector((state: RootState) => state.authenticator)
+  const [open, setOpen] = React.useState(false);
+  const userData = useSelector((state: RootState) => state.authenticator)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const isLoggedin = userData.Autenticado
+  
 
-    const toggleDrawer = (newOpen: boolean) => () => {
-        setOpen(newOpen);
-    };
+  useEffect(() => {
+    if(!isLoggedin) {
+        navigate('/')
+    }
+    },[isLoggedin,navigate])
 
     const handleClick = () => {
       dispatch(authActions.logout())
       navigate('/')
     };
 
-    const isLoggedin = userData.Autenticado
-    const dispatch = useDispatch()
-    const navigate = useNavigate()
     
-    useEffect(() => {
-    if(!isLoggedin) {
-        navigate('/')
-    }
-    },[isLoggedin,navigate])
+    const toggleDrawer = (newOpen: boolean) => () => {
+        setOpen(newOpen);
+    };
 
     const DrawerList = (
         <Box sx={{ width: 250}} role="presentation" onClick={toggleDrawer(false)}>
@@ -59,6 +63,7 @@ export default function Menu() {
                   </ListItemButton>
                 </ListItem>
             </Link>
+            {(userData.Rol === 'admin') ? (
             <Link to={'/Reports'} style={{textDecoration:'none',color:'black'}}>
               <ListItem disablePadding>
                   <ListItemButton>
@@ -69,7 +74,30 @@ export default function Menu() {
                   </ListItemButton>
                 </ListItem>
             </Link>
-            <Link to={'/Home'} style={{textDecoration:'none',color:'black'}}>
+            ) : (userData.Rol === 'user') && (
+              <Link to={'/Reports'} style={{textDecoration:'none',color:'black'}}>
+              <ListItem disablePadding>
+                  <ListItemButton>
+                    <ListItemIcon>
+                      <SummarizeIcon/>
+                    </ListItemIcon>
+                    <ListItemText primary='Informes' />
+                  </ListItemButton>
+                </ListItem>
+            </Link>
+            )}
+            {(userData.Rol === 'admin') && (
+              <Link to={'/Gestion'} style={{textDecoration:'none',color:'black'}}>
+              <ListItem disablePadding>
+                  <ListItemButton>
+                    <ListItemIcon>
+                      <SummarizeIcon/>
+                    </ListItemIcon>
+                    <ListItemText primary='Gestion' />
+                  </ListItemButton>
+                </ListItem>
+            </Link>
+            )}
               <ListItem disablePadding>
                   <ListItemButton>
                     <ListItemIcon>
@@ -78,9 +106,7 @@ export default function Menu() {
                     <ListItemText primary='Ayuda' />
                   </ListItemButton>
                 </ListItem>
-            </Link>
-            <Link to={'/'} style={{textDecoration:'none',color:'black'}}>
-                <ListItem disablePadding>
+                <ListItem disablePadding onClick={handleClick}>
                 <ListItemButton>
                     <ListItemIcon>
                     <LogoutIcon />
@@ -88,7 +114,6 @@ export default function Menu() {
                     <ListItemText primary="Salir" />
                 </ListItemButton>
                 </ListItem>
-            </Link>
         </List> 
         </Box>
       );
@@ -107,10 +132,21 @@ export default function Menu() {
                   {DrawerList}
               </Drawer>
               </IconButton>
-              <IconButton sx={{color:"white", flexGrow:1}} onClick={handleClick}>{userData.nombreUsuario}</IconButton>
-              <IconButton sx={{color:"white"}}>
-                <AccountCircle/>
+              <IconButton sx={{color:"white", flexGrow:1}}>{userData.nombreUsuario}</IconButton>
+              
+              {(userData.Rol === 'admin') ? (
+                <IconButton color='inherit'>
+                  <AdminPanelSettingsIcon/>
+                </IconButton>
+            ) : (userData.Rol === 'user') ? (
+              <IconButton color='inherit'>
+                <AdbIcon />
               </IconButton>
+            ) : (userData.Rol === 'invitado') && (
+              <IconButton color='inherit'>
+                <InsertEmoticonIcon/>
+              </IconButton>
+            )}
               </Toolbar>
           </AppBar>
         </Box>

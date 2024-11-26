@@ -11,6 +11,8 @@ import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import TableBody from '@mui/material/TableBody';
 import DeleteForeverIcon from '@mui/icons-material/Delete';
+import { RootState } from '../store/index';
+import { useSelector } from 'react-redux';
 
 function Dahsboard() {
     interface itemtype {
@@ -22,14 +24,16 @@ function Dahsboard() {
     }
   
     const itemInitialState: itemtype = {
+      //id: (0),
       nombre: '',
       marca: '',
       tipo: '',
-      precio: 0
+      precio: (0)
     }
 
     const [item, setItem] = useState(itemInitialState)
     const [tableData, setTableData] = useState([])
+    const userData = useSelector((state: RootState) => state.authenticator)
 
     useEffect(() => {
         fetch(`http://localhost:3030/getItems`)
@@ -81,7 +85,7 @@ function Dahsboard() {
     <>
         <Box component='form' onSubmit={handleSubmit} sx={{marginTop:"20px"}} >
             <Grid container spacing={2}>
-                <Grid  size={{xs:6, sm:3, md:3}}>
+                <Grid  size={{xs:6, sm:2, md:2}}>
                     <TextField
                         label="Nombre"
                         value={item.nombre}
@@ -90,7 +94,7 @@ function Dahsboard() {
                         required
                     />
                 </Grid>
-                <Grid  size={{xs:6, sm:3, md:3}}>
+                <Grid  size={{xs:6, sm:2, md:2}}>
                     <TextField
                         label="Marca"
                         value={item.marca}
@@ -99,7 +103,7 @@ function Dahsboard() {
                         required
                     />
                 </Grid>
-                <Grid  size={{xs:6, sm:3, md:3}}>
+                <Grid  size={{xs:6, sm:2, md:2}}>
                     <TextField
                         label="Tipo"
                         value={item.tipo}
@@ -108,7 +112,7 @@ function Dahsboard() {
                         required
                     />
                 </Grid>
-                <Grid  size={{xs:6, sm:3, md:3}}>
+                <Grid  size={{xs:6, sm:2, md:2}}>
                     <TextField
                         label="Precio"
                         value={item.precio}
@@ -117,8 +121,13 @@ function Dahsboard() {
                         required
                     />
                 </Grid>
+                {(userData.Rol === 'admin') ? (
                 <Button type="submit" variant='outlined' fullWidth>+ INSERTAR DATOS</Button>
-            </Grid>
+                ) :(userData.Rol === 'user') && (
+                  <Button type="submit" variant='outlined' fullWidth>+ INSERTAR DATOS</Button>
+                )}
+                </Grid>
+          
         </Box>
         
         <TableContainer sx={{marginTop:"20px"}}>
@@ -136,9 +145,15 @@ function Dahsboard() {
             {tableData.map((row: itemtype) => (
                 <TableRow key={row.id}>
                 <TableCell>
+                {(userData.Rol === 'admin') ? (
                     <Button onClick={() => handleDeleteItem(row)}>
                     <DeleteForeverIcon/>
                     </Button>
+                ) :(userData.Rol === 'user') && (
+                  <Button onClick={() => handleDeleteItem(row)}>
+                    <DeleteForeverIcon/>
+                    </Button>
+                )}
                 </TableCell>
                 <TableCell>{row.nombre}</TableCell>
                 <TableCell>{row.marca}</TableCell>

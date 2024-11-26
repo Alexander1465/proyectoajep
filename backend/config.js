@@ -4,7 +4,7 @@ const config = {
         host: "localhost",
         user: "root",
         password: "",
-        database: "bdgestion",
+        database: "bdgestion", // Base de datos
         port: 3306,
         connectTimeout: 60000
     },

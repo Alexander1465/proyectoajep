@@ -1,11 +1,8 @@
-const { insertData, getData , deleteData } = require('./services/items');
-//importo el express y el cors
+const { insertData, getData , deleteData, insertDataRol, getDataRol} = require('./services/items');
 const express = require('express')
 const cors = require('cors')
-//importo el fichero login.js que está en la carpeta services
 const login = require('./services/login')
 
-//Definimos el puerto por que va a escuchar nuestra API las peticiones
 const port  = 3030
 
 const app = express()
@@ -17,17 +14,10 @@ app.use(
 )
 app.use(cors())
 
-
-
-//Ejemplo para ver cómo funciona un endpoint:
-//este endpoint / y devuelve un mensaje
 app.get('/', function (req, res) {
     res.json({message: 'Hola Mundo!'})
 })
 
-//Creación del endpoint: /login
-//llama al fichero login.js usando el método getUserData pasándole
-//el login (user) y la contraseña (password)
 app.get('/login', async function(req, res, next) {
     console.log(req.query)
     console.log(req.query.user)
@@ -40,9 +30,9 @@ app.get('/login', async function(req, res, next) {
     }
 })
 
-//Iniciamos la API
 app.listen(port)
 console.log('API escuchando en el puerto ' + port)
+
 
 app.get('/addItem', async function(req, res, next) {
     try {
@@ -53,15 +43,34 @@ app.get('/addItem', async function(req, res, next) {
     }
    })
 
+   app.get('/addItemRol', async function(req, res, next) {
+    try {
+        res.json(await insertDataRol(req))
+    } catch (err) {
+        console.error(`Error while inserting items `, err.message);
+        next(err);
+    }
+   })
+
+
    app.get('/getItems', async function(req, res, next) {
     try {
         res.json(await getData(req))
-        items.getData()
     } catch (err) {
         console.error(`Error while getting items `, err.message);
         next(err);
     }
     })
+
+    app.get('/getItemsRol', async function(req, res, next) {
+        try {
+            res.json(await getDataRol(req))
+        } catch (err) {
+            console.error(`Error while getting items `, err.message);
+            next(err);
+        }
+        })
+
 
     app.get('/deleteItem', async function(req, res, next) {
     try {
@@ -71,3 +80,6 @@ app.get('/addItem', async function(req, res, next) {
         next(err);
     }
     })
+
+    
+    

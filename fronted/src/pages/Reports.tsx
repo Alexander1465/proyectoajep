@@ -25,7 +25,7 @@ function Reports() {
   return (
     <>
         <Menu/>
-        <Grid container spacing={2} sx={{margin:"auto", width:"200px", marginTop:"20px"}}>
+        <Grid container spacing={2} sx={{margin:"auto", width:"150px", marginTop:"20px"}}>
           <Button type="submit" onClick={click} variant='contained' fullWidth>INFORME COLECCION</Button>
         </Grid>
         {(puls === true) && (

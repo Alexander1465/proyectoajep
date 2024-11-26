@@ -56,7 +56,6 @@ app.get('/addItem', async function(req, res, next) {
    app.get('/getItems', async function(req, res, next) {
     try {
         res.json(await getData(req))
-        items.getData()
     } catch (err) {
         console.error(`Error while getting items `, err.message);
         next(err);

@@ -11,6 +11,8 @@ import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import TableBody from '@mui/material/TableBody';
 import DeleteForeverIcon from '@mui/icons-material/Delete';
+import { RootState } from '../store/index';
+import { useSelector } from 'react-redux';
 
 function Dahsboard() {
     interface itemtype {
@@ -30,6 +32,7 @@ function Dahsboard() {
 
     const [item, setItem] = useState(itemInitialState)
     const [tableData, setTableData] = useState([])
+    const userData = useSelector((state: RootState) => state.authenticator)
 
     useEffect(() => {
         fetch(`http://localhost:3030/getItems`)
@@ -50,6 +53,7 @@ function Dahsboard() {
                 .then((response) => response.json())
                 .then((response) => {
                 setTableData(response.data);
+                setItem(itemInitialState)
             });
             }else {
               alert("Los datos no se han guardado")
@@ -136,9 +140,11 @@ function Dahsboard() {
             {tableData.map((row: itemtype) => (
                 <TableRow key={row.id}>
                 <TableCell>
+                {(userData.Rol === 'admin') && (
                     <Button onClick={() => handleDeleteItem(row)}>
                     <DeleteForeverIcon/>
                     </Button>
+                )}
                 </TableCell>
                 <TableCell>{row.nombre}</TableCell>
                 <TableCell>{row.marca}</TableCell>

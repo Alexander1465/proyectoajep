@@ -1,13 +1,36 @@
-import React from 'react';
-import { Typography} from '@mui/material';
+import React, { useState} from 'react';
 import Menu from '../components/Menu';
+import InformeColeccion from '../components/InformeColeccion';
+import Button from '@mui/material/Button'
+import Grid from '@mui/material/Grid'
+import { useEffect } from 'react'
 
 function Reports() {
-  
+  const [tableData, setTableData] = useState([])
+  const [puls, setpuls] = useState(false);
+
+  useEffect(() => {
+    fetch(`http://localhost:3030/getItems`)
+      .then((response) => response.json())
+      .then((response) => {
+        console.log(response.data);
+        setTableData(response.data);
+      });
+  }, []);
+
+  const click = () => {
+    setpuls(true);
+  };
+
   return (
     <>
-      <Menu />
-        <Typography>Pagina Reports de Ale</Typography>
+        <Menu/>
+        <Grid container spacing={2} sx={{margin:"auto", width:"200px", marginTop:"20px"}}>
+          <Button type="submit" onClick={click} variant='contained' fullWidth>INFORME COLECCION</Button>
+        </Grid>
+        {(puls === true) && (
+          <InformeColeccion tabledata={tableData}/>
+        )} 
     </>
   );
 }

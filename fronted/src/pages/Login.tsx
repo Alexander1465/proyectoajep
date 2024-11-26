@@ -7,6 +7,9 @@ import { useNavigate } from 'react-router-dom'
 import Home from './Home';
 import { authActions } from '../store/authSlice';
 import { useDispatch } from 'react-redux';
+import { Container } from '@mui/material';
+import Typography from '@mui/material/Typography';
+import LockOpenIcon from '@mui/icons-material/LockOpen';
 
 function Login() {
     const [data, setData] = React.useState({
@@ -15,8 +18,6 @@ function Login() {
         verific: 0,     
      });
 
-      const bduser ='alexander'
-      const bdpasswd ='1234'
       const navigate = useNavigate()
       const dispatch = useDispatch()
 
@@ -31,17 +32,20 @@ function Login() {
         if(response.data.length !== 0) {
           dispatch(authActions.login( {
             nombreUsuario: data.usuario,
-            rol: 'administrador'
+            rol: response.data.rol
           }))
           navigate("/Home")
         }else {
-          console.log("usuario/contraseña son incorrectas ")
+          setData({ ...data, verific: 2 });
         }
       })
     }
 
  return (
-    <Box onSubmit={handleSubmit} sx={{ padding: '20px' }} component="form">
+  <Container sx={{justifyContent:'center', alignItems:'center', display: 'flex'}}>
+  <Box onSubmit={handleSubmit} sx={{ padding: '20px', width: '100%',display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}} component="form">
+      <Typography variant='h5'>Sistema de Acceso</Typography>
+        <LockOpenIcon />
         <TextField
             required
             fullWidth
@@ -65,8 +69,10 @@ function Login() {
                 <Alert severity="error">Usuario o contraseña incorrectos</Alert>
             )
         )
-        }
-    </Box>
+      }
+  </Box>
+</Container>
+
  )
 }
 

@@ -22,6 +22,8 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { RootState } from '../store/index';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import AdbIcon from '@mui/icons-material/Adb';
 
 export default function Menu() {
     const [open, setOpen] = React.useState(false);
@@ -59,6 +61,7 @@ export default function Menu() {
                   </ListItemButton>
                 </ListItem>
             </Link>
+            {(userData.Rol === 'admin') && (
             <Link to={'/Reports'} style={{textDecoration:'none',color:'black'}}>
               <ListItem disablePadding>
                   <ListItemButton>
@@ -69,7 +72,7 @@ export default function Menu() {
                   </ListItemButton>
                 </ListItem>
             </Link>
-            <Link to={'/Home'} style={{textDecoration:'none',color:'black'}}>
+            )}
               <ListItem disablePadding>
                   <ListItemButton>
                     <ListItemIcon>
@@ -78,9 +81,7 @@ export default function Menu() {
                     <ListItemText primary='Ayuda' />
                   </ListItemButton>
                 </ListItem>
-            </Link>
-            <Link to={'/'} style={{textDecoration:'none',color:'black'}}>
-                <ListItem disablePadding>
+                <ListItem disablePadding onClick={handleClick}>
                 <ListItemButton>
                     <ListItemIcon>
                     <LogoutIcon />
@@ -88,7 +89,6 @@ export default function Menu() {
                     <ListItemText primary="Salir" />
                 </ListItemButton>
                 </ListItem>
-            </Link>
         </List> 
         </Box>
       );
@@ -107,10 +107,16 @@ export default function Menu() {
                   {DrawerList}
               </Drawer>
               </IconButton>
-              <IconButton sx={{color:"white", flexGrow:1}} onClick={handleClick}>{userData.nombreUsuario}</IconButton>
+              <IconButton sx={{color:"white", flexGrow:1}}>{userData.nombreUsuario}</IconButton>
+              {(userData.Rol === 'admin') ? (
               <IconButton sx={{color:"white"}}>
-                <AccountCircle/>
+                <AdminPanelSettingsIcon/>
               </IconButton>
+              ) : (userData.Rol === 'user') && (
+              <IconButton sx={{color:"white"}}>
+                <AdbIcon/>
+              </IconButton>
+              )}
               </Toolbar>
           </AppBar>
         </Box>

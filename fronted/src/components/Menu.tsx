@@ -73,6 +73,7 @@ export default function Menu() {
                 </ListItem>
             </Link>
             )}
+            <Link to={'/Estupinan_Perez_Alexander_Jose_UT4A1.pdf'} target='black' style={{textDecoration:'none',color:'black'}}>
               <ListItem disablePadding>
                   <ListItemButton>
                     <ListItemIcon>
@@ -81,6 +82,7 @@ export default function Menu() {
                     <ListItemText primary='Ayuda' />
                   </ListItemButton>
                 </ListItem>
+            </Link>
                 <ListItem disablePadding onClick={handleClick}>
                 <ListItemButton>
                     <ListItemIcon>

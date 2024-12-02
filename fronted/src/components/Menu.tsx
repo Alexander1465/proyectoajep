@@ -24,6 +24,7 @@ import { useEffect } from 'react';
 import { RootState } from '../store/index';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import AdbIcon from '@mui/icons-material/Adb';
+import Tooltip from '@mui/material/Tooltip';
 
 export default function Menu() {
     const [open, setOpen] = React.useState(false);
@@ -83,14 +84,16 @@ export default function Menu() {
                   </ListItemButton>
                 </ListItem>
             </Link>
+            <Tooltip title="Menu Desplegable" arrow placement="bottom">
                 <ListItem disablePadding onClick={handleClick}>
                 <ListItemButton>
                     <ListItemIcon>
-                    <LogoutIcon />
+                      <LogoutIcon />
                     </ListItemIcon>
                     <ListItemText primary="Salir" />
                 </ListItemButton>
                 </ListItem>
+            </Tooltip>
         </List> 
         </Box>
       );
@@ -104,11 +107,14 @@ export default function Menu() {
                 onClick={toggleDrawer(true)}
                 sx={{color:"white"}}
               >
+              <Tooltip title="Menu Desplegable" arrow placement="bottom">
               <MenuIcon />
+              </Tooltip>
               <Drawer open={open} onClose={toggleDrawer(false)}>
                   {DrawerList}
               </Drawer>
               </IconButton>
+            
               <IconButton sx={{color:"white", flexGrow:1}}>{userData.nombreUsuario}</IconButton>
               {(userData.Rol === 'admin') ? (
               <IconButton sx={{color:"white"}}>

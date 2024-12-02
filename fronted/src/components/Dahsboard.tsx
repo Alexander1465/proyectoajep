@@ -13,6 +13,7 @@ import TableBody from '@mui/material/TableBody';
 import DeleteForeverIcon from '@mui/icons-material/Delete';
 import { RootState } from '../store/index';
 import { useSelector } from 'react-redux';
+import Tooltip from '@mui/material/Tooltip';
 
 function Dahsboard() {
     interface itemtype {
@@ -121,7 +122,9 @@ function Dahsboard() {
                         required
                     />
                 </Grid>
+                <Tooltip title="Insertar datos" arrow placement="bottom">
                 <Button type="submit" variant='outlined' fullWidth>+ INSERTAR DATOS</Button>
+                </Tooltip>
             </Grid>
         </Box>
         
@@ -141,9 +144,11 @@ function Dahsboard() {
                 <TableRow key={row.id}>
                 <TableCell>
                 {(userData.Rol === 'admin') && (
+                  <Tooltip title="Borrar" arrow placement="bottom">
                     <Button onClick={() => handleDeleteItem(row)}>
                     <DeleteForeverIcon/>
                     </Button>
+                  </Tooltip>
                 )}
                 </TableCell>
                 <TableCell>{row.nombre}</TableCell>

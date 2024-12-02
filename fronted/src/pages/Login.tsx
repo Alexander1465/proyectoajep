@@ -10,6 +10,7 @@ import { useDispatch } from 'react-redux';
 import { Container } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
+import Tooltip from '@mui/material/Tooltip';
 
 function Login() {
     const [data, setData] = React.useState({
@@ -61,7 +62,9 @@ function Login() {
             value={data.constraseña}
             onChange={(e) => setData({ ...data, constraseña: e.target.value })}
             />
+        <Tooltip title="Acceder" arrow placement="bottom">
         <Button variant='contained' fullWidth type='submit'>Acceder</Button>
+        </Tooltip>
         { data.verific !== 0 && (
             data.verific === 1 ? (
                 <Alert severity="success">Acceso concedido</Alert>
@@ -70,6 +73,7 @@ function Login() {
             )
         )
       }
+      
   </Box>
 </Container>
 

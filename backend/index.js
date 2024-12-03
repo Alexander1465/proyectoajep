@@ -1,4 +1,4 @@
-const { insertData, getData , deleteData } = require('./services/items');
+const { insertData, getData , deleteData, getDataUser } = require('./services/items');
 //importo el express y el cors
 const express = require('express')
 const cors = require('cors')
@@ -61,6 +61,15 @@ app.get('/addItem', async function(req, res, next) {
         next(err);
     }
     })
+
+    app.get('/getItemsUser', async function(req, res, next) {
+        try {
+            res.json(await getDataUser(req))
+        } catch (err) {
+            console.error(`Error while getting items `, err.message);
+            next(err);
+        }
+        })
 
     app.get('/deleteItem', async function(req, res, next) {
     try {

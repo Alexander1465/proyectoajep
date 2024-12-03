@@ -21,6 +21,16 @@ return {
 }
 }
 
+async function getDataUser (req, res) {
+    const rows = await db.query(
+    `Select * from usuarios`
+    )
+    const data = helper.emptyOrRows(rows)
+return {
+    data
+}
+}
+
 
 async function deleteData (req, res) {
     const data = req.query
@@ -33,6 +43,7 @@ async function deleteData (req, res) {
 module.exports = {
     getData,
     insertData,
-    deleteData
+    deleteData,
+    getDataUser
    }
 

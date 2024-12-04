@@ -86,7 +86,7 @@ function Dahsboard() {
                         label="Nombre"
                         value={item.nombre}
                         fullWidth
-                        onChange={(e) => setItem({...item, nombre: e.target.value })}
+                        onChange={(e:any) => setItem({...item, nombre: e.target.value })}
                         required
                     />
                 </Grid>
@@ -95,7 +95,7 @@ function Dahsboard() {
                         label="Marca"
                         value={item.marca}
                         fullWidth
-                        onChange={(e) => setItem({...item, marca: e.target.value })}
+                        onChange={(e:any) => setItem({...item, marca: e.target.value })}
                         required
                     />
                 </Grid>
@@ -104,7 +104,7 @@ function Dahsboard() {
                         label="Tipo"
                         value={item.tipo}
                         fullWidth
-                        onChange={(e) => setItem({...item, tipo: e.target.value })}
+                        onChange={(e:any) => setItem({...item, tipo: e.target.value })}
                         required
                     />
                 </Grid>
@@ -113,7 +113,7 @@ function Dahsboard() {
                         label="Precio"
                         value={item.precio}
                         fullWidth
-                        onChange={(e) => setItem({...item, precio: parseFloat(e.target.value) })}
+                        onChange={(e:any) => setItem({...item, precio: e.target.value })}
                         required
                     />
                 </Grid>

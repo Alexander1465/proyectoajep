@@ -26,25 +26,29 @@ import { RootState } from '../store/index';
 export default function Menu() {
     const [open, setOpen] = React.useState(false);
     const userData = useSelector((state: RootState) => state.authenticator)
-
-    const toggleDrawer = (newOpen: boolean) => () => {
-        setOpen(newOpen);
-    };
-
-    const handleClick = () => {
-      dispatch(authActions.logout())
-      navigate('/')
-    };
-
     const isLoggedin = userData.Autenticado
     const dispatch = useDispatch()
     const navigate = useNavigate()
     
     useEffect(() => {
-    if(!isLoggedin) {
-        navigate('/')
-    }
-    },[isLoggedin,navigate])
+      if(!isLoggedin) {
+          navigate('/')
+      }
+      },[isLoggedin,navigate])
+
+
+    const toggleDrawer = (newOpen: boolean) => () => {
+        setOpen(newOpen);
+    };
+
+    
+      
+    const handleClick = () => {
+      dispatch(authActions.logout())
+      navigate('/')
+    };
+
+  
 
     const DrawerList = (
         <Box sx={{ width: 250}} role="presentation" onClick={toggleDrawer(false)}>
@@ -69,7 +73,6 @@ export default function Menu() {
                   </ListItemButton>
                 </ListItem>
             </Link>
-            <Link to={'/Home'} style={{textDecoration:'none',color:'black'}}>
               <ListItem disablePadding>
                   <ListItemButton>
                     <ListItemIcon>
@@ -78,9 +81,7 @@ export default function Menu() {
                     <ListItemText primary='Ayuda' />
                   </ListItemButton>
                 </ListItem>
-            </Link>
-            <Link to={'/'} style={{textDecoration:'none',color:'black'}}>
-                <ListItem disablePadding>
+                <ListItem disablePadding onClick={handleClick}>
                 <ListItemButton>
                     <ListItemIcon>
                     <LogoutIcon />
@@ -88,7 +89,6 @@ export default function Menu() {
                     <ListItemText primary="Salir" />
                 </ListItemButton>
                 </ListItem>
-            </Link>
         </List> 
         </Box>
       );
@@ -107,7 +107,7 @@ export default function Menu() {
                   {DrawerList}
               </Drawer>
               </IconButton>
-              <IconButton sx={{color:"white", flexGrow:1}} onClick={handleClick}>{userData.nombreUsuario}</IconButton>
+              <IconButton sx={{color:"white", flexGrow:1}}>{userData.nombreUsuario}</IconButton>
               <IconButton sx={{color:"white"}}>
                 <AccountCircle/>
               </IconButton>

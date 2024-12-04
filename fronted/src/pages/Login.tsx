@@ -7,11 +7,14 @@ import { useNavigate } from 'react-router-dom'
 import Home from './Home';
 import { authActions } from '../store/authSlice';
 import { useDispatch } from 'react-redux';
+import LockOpenIcon from '@mui/icons-material/LockOpen';
+import Container from '@mui/material/Container';
+import { Typography } from '@mui/material';
 
 function Login() {
     const [data, setData] = React.useState({
         usuario: '', 
-        constraseña: '',
+        constrasena: '',
         verific: 0,     
      });
 
@@ -23,7 +26,7 @@ function Login() {
 
       const handleSubmit = (e:any) => {
         e.preventDefault()
-        fetch(`http://localhost:3030/login?user=${data.usuario}&password=${data.constraseña}`)
+        fetch(`http://localhost:3030/login?user=${data.usuario}&password=${data.constrasena}`)
             .then(response => response.json())
             .then (response => {
             console.log("Lo que nos llega de la base de datos: ")
@@ -41,32 +44,36 @@ function Login() {
     }
 
  return (
-    <Box onSubmit={handleSubmit} sx={{ padding: '20px' }} component="form">
-        <TextField
-            required
-            fullWidth
-            label="usuario"
-            value={data.usuario}
-            onChange={(e) => setData({ ...data, usuario: e.target.value })}
-        />
-        <TextField
-            required
-            fullWidth
-            label="constraseña"
-            type='password'
-            value={data.constraseña}
-            onChange={(e) => setData({ ...data, constraseña: e.target.value })}
-            />
-        <Button variant='contained' fullWidth type='submit'>Acceder</Button>
-        { data.verific !== 0 && (
-            data.verific === 1 ? (
-                <Alert severity="success">Acceso concedido</Alert>
-            ) : (
-                <Alert severity="error">Usuario o contraseña incorrectos</Alert>
-            )
-        )
+  <Container sx={{justifyContent:'center', alignItems:'center', display: 'flex'}}>
+    <Box onSubmit={handleSubmit} sx={{ padding: '20px', width: '100%',display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}} component="form">
+        <Typography variant='h5'>Sistema de Acceso</Typography>
+          <LockOpenIcon />
+          <TextField
+              required
+              fullWidth
+              label="usuario"
+              value={data.usuario}
+              onChange={(e) => setData({ ...data, usuario: e.target.value })}
+          />
+          <TextField
+              required
+              fullWidth
+              label="constraseña"
+              type='password'
+              value={data.constrasena}
+              onChange={(e) => setData({ ...data, constrasena: e.target.value })}
+              />
+          <Button variant='contained' fullWidth type='submit'>Acceder</Button>
+          { data.verific !== 0 && (
+              data.verific === 1 ? (
+                  <Alert severity="success">Acceso concedido</Alert>
+              ) : (
+                  <Alert severity="error">Usuario o contraseña incorrectos</Alert>
+              )
+          )
         }
     </Box>
+  </Container>
  )
 }
 

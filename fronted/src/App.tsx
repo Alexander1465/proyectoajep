@@ -5,6 +5,7 @@ import Reports from './pages/Reports'
 import {createBrowserRouter, RouterProvider} from 'react-router-dom'
 import Error from "./pages/Error";
 import Gestion from './pages/Gestion';
+import GestionPrestamo from './pages/GestionPrestamo';
 
 
 const router = createBrowserRouter([
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
       {
         path: 'Gestion',
         element: <Gestion/>
+      },
+      {
+        path: 'GestionPrestamo',
+        element: <GestionPrestamo/>
       },
     ],
   },

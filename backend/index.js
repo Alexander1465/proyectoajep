@@ -1,4 +1,4 @@
-const { insertData, getData , deleteData, insertDataRol, getDataRol} = require('./services/items');
+const { insertData, getData , deleteData, insertDataRol, getDataRol, insertDataPrestamo, getDataPrestamo} = require('./services/items');
 const express = require('express')
 const cors = require('cors')
 const login = require('./services/login')
@@ -52,6 +52,15 @@ app.get('/addItem', async function(req, res, next) {
     }
    })
 
+   app.get('/addItemPrestamo', async function(req, res, next) {
+    try {
+        res.json(await insertDataPrestamo(req))
+    } catch (err) {
+        console.error(`Error while inserting items `, err.message);
+        next(err);
+    }
+   })
+
 
    app.get('/getItems', async function(req, res, next) {
     try {
@@ -70,6 +79,14 @@ app.get('/addItem', async function(req, res, next) {
             next(err);
         }
         })
+        app.get('/getItemsPrestamo', async function(req, res, next) {
+            try {
+                res.json(await getDataPrestamo(req))
+            } catch (err) {
+                console.error(`Error while getting items `, err.message);
+                next(err);
+            }
+            })
 
 
     app.get('/deleteItem', async function(req, res, next) {

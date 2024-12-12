@@ -63,19 +63,8 @@ export default function Menu() {
                   </ListItemButton>
                 </ListItem>
             </Link>
-            {(userData.Rol === 'admin') ? (
+            {(userData.Rol === 'admin') && (
             <Link to={'/Reports'} style={{textDecoration:'none',color:'black'}}>
-              <ListItem disablePadding>
-                  <ListItemButton>
-                    <ListItemIcon>
-                      <SummarizeIcon/>
-                    </ListItemIcon>
-                    <ListItemText primary='Informes' />
-                  </ListItemButton>
-                </ListItem>
-            </Link>
-            ) : (userData.Rol === 'user') && (
-              <Link to={'/Reports'} style={{textDecoration:'none',color:'black'}}>
               <ListItem disablePadding>
                   <ListItemButton>
                     <ListItemIcon>
@@ -98,6 +87,16 @@ export default function Menu() {
                 </ListItem>
             </Link>
             )}
+            <Link to={'/GestionPrestamo'} style={{textDecoration:'none',color:'black'}}>
+              <ListItem disablePadding>
+                  <ListItemButton>
+                    <ListItemIcon>
+                      <SummarizeIcon/>
+                    </ListItemIcon>
+                    <ListItemText primary='Gestion Prestamo' />
+                  </ListItemButton>
+                </ListItem>
+            </Link>
               <ListItem disablePadding>
                   <ListItemButton>
                     <ListItemIcon>
@@ -140,11 +139,11 @@ export default function Menu() {
                 </IconButton>
             ) : (userData.Rol === 'user') ? (
               <IconButton color='inherit'>
-                <AdbIcon />
+                <InsertEmoticonIcon/>
               </IconButton>
             ) : (userData.Rol === 'invitado') && (
               <IconButton color='inherit'>
-                <InsertEmoticonIcon/>
+                <AdbIcon />
               </IconButton>
             )}
               </Toolbar>

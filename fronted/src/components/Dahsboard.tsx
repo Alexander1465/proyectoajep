@@ -24,7 +24,6 @@ function Dahsboard() {
     }
   
     const itemInitialState: itemtype = {
-      //id: (0),
       nombre: '',
       marca: '',
       tipo: '',
@@ -90,7 +89,7 @@ function Dahsboard() {
                         label="Nombre"
                         value={item.nombre}
                         fullWidth
-                        onChange={(e) => setItem({...item, nombre: e.target.value })}
+                        onChange={(e:any) => setItem({...item, nombre: e.target.value })}
                         required
                     />
                 </Grid>
@@ -99,7 +98,7 @@ function Dahsboard() {
                         label="Marca"
                         value={item.marca}
                         fullWidth
-                        onChange={(e) => setItem({...item, marca: e.target.value })}
+                        onChange={(e:any) => setItem({...item, marca: e.target.value })}
                         required
                     />
                 </Grid>
@@ -108,7 +107,7 @@ function Dahsboard() {
                         label="Tipo"
                         value={item.tipo}
                         fullWidth
-                        onChange={(e) => setItem({...item, tipo: e.target.value })}
+                        onChange={(e:any) => setItem({...item, tipo: e.target.value })}
                         required
                     />
                 </Grid>
@@ -117,17 +116,14 @@ function Dahsboard() {
                         label="Precio"
                         value={item.precio}
                         fullWidth
-                        onChange={(e) => setItem({...item, precio: parseFloat(e.target.value) })}
+                        onChange={(e:any) => setItem({...item, precio: e.target.value })}
                         required
                     />
                 </Grid>
-                {(userData.Rol === 'admin') ? (
+                {(userData.Rol === 'admin') && (
                 <Button type="submit" variant='outlined' fullWidth>+ INSERTAR DATOS</Button>
-                ) :(userData.Rol === 'user') && (
-                  <Button type="submit" variant='outlined' fullWidth>+ INSERTAR DATOS</Button>
                 )}
                 </Grid>
-          
         </Box>
         
         <TableContainer sx={{marginTop:"20px"}}>
@@ -145,12 +141,8 @@ function Dahsboard() {
             {tableData.map((row: itemtype) => (
                 <TableRow key={row.id}>
                 <TableCell>
-                {(userData.Rol === 'admin') ? (
+                {(userData.Rol === 'admin') && (
                     <Button onClick={() => handleDeleteItem(row)}>
-                    <DeleteForeverIcon/>
-                    </Button>
-                ) :(userData.Rol === 'user') && (
-                  <Button onClick={() => handleDeleteItem(row)}>
                     <DeleteForeverIcon/>
                     </Button>
                 )}
